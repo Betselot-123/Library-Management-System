@@ -1,4 +1,4 @@
-// 
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
@@ -10,7 +10,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   </React.StrictMode>
 );
 
-// 
+// App
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
@@ -76,7 +76,7 @@ export const AuthProvider = ({ children }) => {
         console.error("Invalid token");
       }
     }
-  }, 
+  }, []);
 
   const login = (token) => {
     localStorage.setItem("token", token);
@@ -97,7 +97,7 @@ export const AuthProvider = ({ children }) => {
 
 export const useAuth = () => useContext(AuthContext);
 
-//
+// 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api";
@@ -180,7 +180,7 @@ const Dashboard = () => {
 
 export default Dashboard;
 
-//
+// 
 import React, { useEffect, useState } from "react";
 import API from "../api";
 
@@ -216,7 +216,7 @@ const BooksPage = () => {
 
 export default BooksPage;
 
-//
+// 
 import React, { useEffect, useState } from "react";
 import API from "../api";
 
@@ -265,6 +265,7 @@ const GenresPage = () => {
   }, []);
 
   const addGenre = async () => {
+    if (!newGenre.trim()) return;
     const res = await API.post("/genres", { name: newGenre });
     setGenres([...genres, res.data]);
     setNewGenre("");
@@ -308,6 +309,7 @@ const BorrowPage = () => {
   }, []);
 
   const borrowBook = async () => {
+    if (!bookId || !memberId || !dueDate) return alert("Please fill all fields");
     try {
       await API.post("/borrows", { bookId, memberId, dueDate });
       alert("Book borrowed successfully");
@@ -339,7 +341,7 @@ const BorrowPage = () => {
 
 export default BorrowPage;
 
-//
+// 
 import React, { useEffect, useState } from "react";
 import API from "../api";
 
@@ -352,6 +354,7 @@ const ReturnPage = () => {
   }, []);
 
   const returnBook = async () => {
+    if (!borrowId) return alert("Please select a borrow record");
     try {
       await API.patch(`/borrows/${borrowId}/return`);
       alert("Book returned successfully");
@@ -374,4 +377,7 @@ const ReturnPage = () => {
   );
 };
 
- Return;0
+export ReturnPage;
+
+
+
